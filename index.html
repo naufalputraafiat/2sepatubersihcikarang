@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2SepatuBersihCikarang - Cuci Sepatu Premium & Estetik</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to use Poppins and apply custom theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary-blue': '#4c6ef5',
+                        'secondary-cyan': '#20c997',
+                        'dark-bg': '#1e293b',
+                        'dark-card': '#334155',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Load Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles for smooth transitions and dark mode */
+        body {
+            scroll-behavior: smooth;
+            transition: all 0.3s ease-in-out;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc; /* Light background */
+            color: #1f2937; /* Dark text */
+        }
+        .dark-mode {
+            background-color: #0f172a; /* Darkest background */
+            color: #e2e8f0; /* Light text */
+        }
+        .dark-mode .bg-white {
+            background-color: #1e293b; /* Dark card background */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .dark-mode .text-gray-700 {
+            color: #e2e8f0;
+        }
+        .dark-mode .hover-shadow:hover {
+            box-shadow: 0 0 20px rgba(76, 110, 245, 0.5); /* Primary blue glow */
+        }
+
+        /* Custom Hover Effect for Cards */
+        .hover-shadow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Wave Separator */
+        .hero-wave {
+            position: absolute;
+            bottom: -1px;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+        .hero-wave svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px;
+        }
+        .hero-wave .shape-fill {
+            fill: #f8fafc; /* Match body background */
+        }
+        .dark-mode .hero-wave .shape-fill {
+            fill: #0f172a; /* Match dark mode body background */
+        }
+    </style>
+</head>
+
+<body class="transition duration-300">
+
+    <!-- 1. Navigation Bar (Sticky) -->
+    <nav class="sticky top-0 z-50 bg-white bg-opacity-95 shadow-lg backdrop-blur-sm transition duration-300 dark-mode:bg-dark-bg dark-mode:bg-opacity-95">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Title -->
+                <a href="#" class="flex-shrink-0 text-xl font-bold text-primary-blue dark-mode:text-secondary-cyan transition duration-300">
+                    2SepatuBersihCikarang
+                </a>
+                <!-- Desktop Links -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="#layanan" class="text-gray-700 hover:text-primary-blue dark-mode:text-gray-300 dark-mode:hover:text-secondary-cyan px-3 py-2 rounded-md font-medium transition duration-200">Layanan</a>
+                    <a href="#harga" class="text-gray-700 hover:text-primary-blue dark-mode:text-gray-300 dark-mode:hover:text-secondary-cyan px-3 py-2 rounded-md font-medium transition duration-200">Harga</a>
+                    <a href="#galeri" class="text-gray-700 hover:text-primary-blue dark-mode:text-gray-300 dark-mode:hover:text-secondary-cyan px-3 py-2 rounded-md font-medium transition duration-200">Galeri</a>
+                    <a href="#testimoni" class="text-gray-700 hover:text-primary-blue dark-mode:text-gray-300 dark-mode:hover:text-secondary-cyan px-3 py-2 rounded-md font-medium transition duration-200">Testimoni</a>
+                </div>
+                <!-- Action Buttons -->
+                <div class="flex items-center space-x-3">
+                    <button id="dark-mode-toggle" class="dark-mode-toggle text-xl p-2 rounded-full bg-gray-100 hover:bg-gray-200 dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 transition duration-200" title="Toggle Dark Mode">
+                        🌙
+                    </button>
+                    <!-- Tautan WhatsApp diubah menjadi onclick call -->
+                    <a href="javascript:void(0)" onclick="openWhatsAppOrder()" class="hidden sm:inline-block bg-primary-blue hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:scale-105">
+                        <svg class="w-5 h-5 inline-block mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                        Pesan Sekarang
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section (Visual and Catchy) -->
+    <header id="hero" class="relative bg-primary-blue text-white py-20 md:py-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between z-10 relative">
+            <!-- Text Content -->
+            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-4">
+                    Sepatu Bersih, <span class="text-secondary-cyan">Gaya Maksimal.</span>
+                </h1>
+                <p class="text-xl opacity-90 mb-8 max-w-md mx-auto md:mx-0">
+                    Layanan cuci sepatu premium di Cikarang. Kami kembalikan kilau sepatu favorit Anda.
+                </p>
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <a href="#layanan" class="bg-secondary-cyan hover:bg-teal-500 text-dark-bg font-bold py-3 px-8 rounded-full shadow-xl transition duration-300 transform hover:scale-105">
+                        Lihat Layanan
+                    </a>
+                    <a href="#harga" class="border border-white hover:bg-white hover:text-primary-blue font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">
+                        Daftar Harga
+                    </a>
+                </div>
+            </div>
+            <!-- Image (Placeholder) -->
+            <div class="md:w-1/2 flex justify-center">
+                <!-- Placeholder Image for a stylish clean shoe -->
+                <img src="https://placehold.co/400x400/20c997/ffffff?text=Clean+Shoe" alt="Sepatu yang bersih dan berkilau" class="rounded-3xl shadow-2xl transition duration-500 transform hover:rotate-2 hover:scale-105" loading="lazy">
+            </div>
+        </div>
+        <!-- Wave Separator -->
+        <div class="hero-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.7,29.53,718.62,28C654.8,26.54,586.84,31.45,516.89,41.22C446.94,51,368.52,65.8,290.07,76.53C211.62,87.26,132.8,91.8,77,93.57C41.71,94.39,12.33,95.12,0,95.63V0H1200V92.83Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- 3. Layanan Section (The Core Offering - Updated to reflect 5 services) -->
+    <section id="layanan" class="py-20 bg-f8fafc dark-mode:bg-0f172a">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-primary-blue dark-mode:text-secondary-cyan">Pilihan Perawatan Premium</h2>
+            <p class="text-xl text-gray-600 dark-mode:text-gray-300 mb-12">Pilih perawatan yang tepat untuk sepatu kesayangan Anda, mulai dari bersih cepat hingga restorasi penuh.</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- Layanan 1: Reguler Cleaning -->
+                <div class="bg-white dark-mode:bg-dark-card p-6 rounded-xl shadow-lg transition duration-300 hover-shadow">
+                    <div class="text-4xl mb-3 text-secondary-cyan">🧼</div>
+                    <h3 class="text-xl font-semibold mb-1">Reguler Clean</h3>
+                    <p class="text-sm text-gray-700 dark-mode:text-gray-300">Pencucian standar menyeluruh.</p>
+                </div>
+                <!-- Layanan 2: Fast Cleaning -->
+                <div class="bg-white dark-mode:bg-dark-card p-6 rounded-xl shadow-lg transition duration-300 hover-shadow">
+                    <div class="text-4xl mb-3 text-secondary-cyan">⚡</div>
+                    <h3 class="text-xl font-semibold mb-1">Fast Clean</h3>
+                    <p class="text-sm text-gray-700 dark-mode:text-gray-300">Pembersihan cepat kotoran permukaan.</p>
+                </div>
+                <!-- Layanan 3: Deep Cleaning -->
+                <div class="bg-white dark-mode:bg-dark-card p-6 rounded-xl shadow-lg transition duration-300 hover-shadow">
+                    <div class="text-4xl mb-3 text-secondary-cyan">🛁</div>
+                    <h3 class="text-xl font-semibold mb-1">Deep Clean</h3>
+                    <p class="text-sm text-gray-700 dark-mode:text-gray-300">Pencucian ekstra untuk noda membandel.</p>
+                </div>
+                <!-- Layanan 4: Repaint -->
+                <div class="bg-white dark-mode:bg-dark-card p-6 rounded-xl shadow-lg transition duration-300 hover-shadow">
+                    <div class="text-4xl mb-3 text-secondary-cyan">🎨</div>
+                    <h3 class="text-xl font-semibold mb-1">Repaint</h3>
+                    <p class="text-sm text-gray-700 dark-mode:text-gray-300">Mengembalikan warna asli sepatu.</p>
+                </div>
+                 <!-- Layanan 5: Reglue -->
+                 <div class="bg-white dark-mode:bg-dark-card p-6 rounded-xl shadow-lg transition duration-300 hover-shadow">
+                    <div class="text-4xl mb-3 text-secondary-cyan">🔗</div>
+                    <h3 class="text-xl font-semibold mb-1">Reglue</h3>
+                    <p class="text-sm text-gray-700 dark-mode:text-gray-300">Perbaikan dan pengeleman ulang midsole.</p>
+                </div>
+            </div>
+            <a href="#harga" class="mt-12 inline-block bg-primary-blue hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+                Lihat Detail Harga
+            </a>
+        </div>
+    </section>
+
+    <!-- 4. Daftar Harga Section (Updated with new prices) -->
+    <section id="harga" class="py-20 bg-gray-100 dark-mode:bg-dark-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-primary-blue dark-mode:text-secondary-cyan">Daftar Harga & Estimasi Waktu</h2>
+            <p class="text-xl text-gray-600 dark-mode:text-gray-300 mb-12">Pilih layanan yang sesuai dengan kebutuhan Anda.</p>
+
+            <!-- Price Table Container -->
+            <div class="max-w-4xl mx-auto bg-white dark-mode:bg-dark-card rounded-xl shadow-2xl overflow-hidden">
+                <table class="min-w-full divide-y divide-gray-200 dark-mode:divide-gray-700">
+                    <thead class="bg-primary-blue dark-mode:bg-secondary-cyan">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-sm font-extrabold text-white dark-mode:text-dark-bg uppercase tracking-wider rounded-tl-xl">Layanan</th>
+                            <th class="px-6 py-4 text-center text-sm font-extrabold text-white dark-mode:text-dark-bg uppercase tracking-wider">Harga</th>
+                            <th class="px-6 py-4 text-center text-sm font-extrabold text-white dark-mode:text-dark-bg uppercase tracking-wider rounded-tr-xl">Estimasi Waktu</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 dark-mode:divide-gray-700 text-gray-700 dark-mode:text-gray-300">
+                        
+                        <!-- Reguler Cleaning -->
+                        <tr class="hover:bg-gray-50 dark-mode:hover:bg-gray-800 transition duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-lg text-primary-blue dark-mode:text-white">Reguler Cleaning</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-lg font-semibold">Rp 30.000</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">3 Hari</td>
+                        </tr>
+
+                        <!-- Fast Cleaning -->
+                        <tr class="bg-yellow-50 dark-mode:bg-dark-card hover:bg-yellow-100 dark-mode:hover:bg-gray-700 transition duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-lg text-primary-blue dark-mode:text-secondary-cyan">Fast Cleaning <span class="text-xs ml-2 bg-yellow-400 text-dark-bg px-2 py-0.5 rounded-full font-bold">EXPRESS</span></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-lg font-semibold">Rp 50.000</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center font-bold text-red-500">1 Hari</td>
+                        </tr>
+
+                        <!-- Deep Cleaning -->
+                        <tr class="hover:bg-gray-50 dark-mode:hover:bg-gray-800 transition duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-lg text-primary-blue dark-mode:text-white">Deep Cleaning</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-lg font-semibold">Rp 50.000</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">3 Hari</td>
+                        </tr>
+
+                        <!-- Reglue -->
+                        <tr class="hover:bg-gray-50 dark-mode:hover:bg-gray-800 transition duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-lg text-primary-blue dark-mode:text-white">Reglue (Pengeleman)</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-lg font-semibold">Rp 30.000</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">3 Hari</td>
+                        </tr>
+                        
+                        <!-- Repaint -->
+                        <tr class="bg-blue-50 dark-mode:bg-dark-card hover:bg-blue-100 dark-mode:hover:bg-gray-700 transition duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-lg text-primary-blue dark-mode:text-secondary-cyan">Repaint (Perubahan Warna) <span class="text-xs ml-2 bg-primary-blue text-white px-2 py-0.5 rounded-full font-bold">RESTORASI</span></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-lg font-semibold">Rp 100.000</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center font-bold text-primary-blue">7 Hari</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+                <div class="p-6 bg-gray-50 dark-mode:bg-gray-900 border-t border-gray-200 dark-mode:border-gray-700">
+                    <!-- Tautan WhatsApp diubah menjadi onclick call -->
+                    <a href="javascript:void(0)" onclick="openWhatsAppOrder()" class="w-full inline-block bg-secondary-cyan hover:bg-teal-500 text-dark-bg font-bold py-3 rounded-lg shadow-md transition duration-300 transform hover:scale-[1.01]">
+                        Pesan Layanan Sekarang via WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Galeri Section (Visual Proof) -->
+    <section id="galeri" class="py-20 bg-f8fafc dark-mode:bg-0f172a">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-primary-blue dark-mode:text-secondary-cyan">Hasil Kerja Kami</h2>
+            <p class="text-xl text-gray-600 dark-mode:text-gray-300 mb-12">Lihat sendiri perubahan sepatu *before & after*.</p>
+
+            <div class="relative max-w-5xl mx-auto">
+                <div id="gallery-carousel" class="gallery grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-hidden rounded-xl shadow-xl">
+                    <!-- Placeholder Images for Before/After -->
+                    <img src="https://placehold.co/800x600/f87171/ffffff?text=BEFORE" alt="Before Cleaning" class="w-full h-full object-cover transition duration-500 hover:opacity-75 rounded-lg" loading="lazy">
+                    <img src="https://placehold.co/800x600/20c997/ffffff?text=AFTER" alt="After Cleaning" class="w-full h-full object-cover transition duration-500 hover:opacity-75 rounded-lg" loading="lazy">
+                    <img src="https://placehold.co/800x600/3b82f6/ffffff?text=REPAIR+A" alt="Shoe Repair 1" class="w-full h-full object-cover transition duration-500 hover:opacity-75 rounded-lg" loading="lazy">
+                    <img src="https://placehold.co/800x600/f59e0b/ffffff?text=REPAIR+B" alt="Shoe Repair 2" class="w-full h-full object-cover transition duration-500 hover:opacity-75 rounded-lg" loading="lazy">
+                </div>
+                <!-- Navigation Arrows (Optional in this grid layout, but good for carousels) -->
+                <!-- <button class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-lg ml-4 opacity-70 hover:opacity-100 transition duration-200">❮</button>
+                <button class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-lg mr-4 opacity-70 hover:opacity-100 transition duration-200">❯</button> -->
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 6. Testimoni Section -->
+    <section id="testimoni" class="py-20 bg-gray-100 dark-mode:bg-dark-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-primary-blue dark-mode:text-secondary-cyan">Kata Pelanggan Kami</h2>
+            <p class="text-xl text-gray-600 dark-mode:text-gray-300 mb-12">Kepuasan Anda adalah prioritas kami.</p>
+
+            <div id="testimonial-carousel" class="relative max-w-3xl mx-auto overflow-hidden">
+                <div class="flex transition-transform duration-500" id="testimonial-track">
+                    <!-- Testimonial 1 -->
+                    <div class="min-w-full p-8 bg-white dark-mode:bg-dark-card rounded-xl shadow-xl">
+                        <div class="text-3xl text-yellow-500 mb-4">★★★★★</div>
+                        <p class="text-lg italic text-gray-700 dark-mode:text-gray-300 mb-6">
+                            "Sepatu saya yang tadinya kusam jadi seperti baru lagi! Detail pengerjaannya sangat rapi. Pelayanannya juga ramah dan cepat."
+                        </p>
+                        <p class="font-semibold text-primary-blue dark-mode:text-secondary-cyan">- Rina A. (Cikarang Barat)</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="min-w-full p-8 bg-white dark-mode:bg-dark-card rounded-xl shadow-xl">
+                        <div class="text-3xl text-yellow-500 mb-4">★★★★★</div>
+                        <p class="text-lg italic text-gray-700 dark-mode:text-gray-300 mb-6">
+                            "Paket Deep Clean-nya *worth it* banget! Bau kaki hilang, sepatu bersih total. Sekarang jadi langganan rutin di sini."
+                        </p>
+                        <p class="font-semibold text-primary-blue dark-mode:text-secondary-cyan">- Bima S. (Jababeka)</p>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="min-w-full p-8 bg-white dark-mode:bg-dark-card rounded-xl shadow-xl">
+                        <div class="text-3xl text-yellow-500 mb-4">★★★★★</div>
+                        <p class="text-lg italic text-gray-700 dark-mode:text-gray-300 mb-6">
+                            "Restorasi warna sepatu kulit saya hasilnya luar biasa. Benar-benar profesional. Terima kasih 2SepatuBersihCikarang!"
+                        </p>
+                        <p class="font-semibold text-primary-blue dark-mode:text-secondary-cyan">- Citra P. (Lihat di Google)</p>
+                    </div>
+                </div>
+                <!-- Carousel Dots -->
+                <div class="flex justify-center space-x-2 mt-6" id="testimonial-dots">
+                    <button class="w-3 h-3 bg-primary-blue rounded-full opacity-50 dot-active transition duration-300"></button>
+                    <button class="w-3 h-3 bg-primary-blue rounded-full opacity-50 transition duration-300"></button>
+                    <button class="w-3 h-3 bg-primary-blue rounded-full opacity-50 transition duration-300"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. CTA / Footer Section -->
+    <footer class="bg-dark-bg text-white pt-16 pb-8 dark-mode:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand Info -->
+                <div>
+                    <h4 class="text-2xl font-bold mb-4 text-secondary-cyan">2SepatuBersihCikarang</h4>
+                    <p class="text-gray-400 text-sm">Layanan perawatan sepatu premium yang mengutamakan kualitas, estetika, dan kebersihan maksimal di area Cikarang.</p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Menu Cepat</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#layanan" class="hover:text-primary-blue transition duration-200">Layanan</a></li>
+                        <li><a href="#harga" class="hover:text-primary-blue transition duration-200">Daftar Harga</a></li>
+                        <li><a href="#galeri" class="hover:text-primary-blue transition duration-200">Galeri</a></li>
+                        <li><a href="#testimoni" class="hover:text-primary-blue transition duration-200">Testimoni</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Hubungi Kami</h4>
+                    <p class="text-gray-400">
+                        <span class="font-semibold block">WhatsApp:</span>
+                        <a href="javascript:void(0)" onclick="openWhatsAppOrder()" class="hover:text-primary-blue transition duration-200">+62 851-5870-1081</a>
+                    </p>
+                    <p class="text-gray-400 mt-2">
+                        <span class="font-semibold block">Alamat (Mockup):</span>
+                        Jl. Estetik No. 12, Cikarang Utara
+                    </p>
+                </div>
+                <!-- Social Share -->
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Bagikan</h4>
+                    <div class="flex space-x-3">
+                        <button onclick="shareLink('WhatsApp')" class="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full transition duration-200 transform hover:scale-110" title="Share via WhatsApp">
+                            <!-- WhatsApp Icon SVG -->
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.031 2.251c-5.419 0-9.805 4.386-9.805 9.805 0 1.636.41 3.208 1.189 4.597l-1.258 4.597 4.708-1.238c1.341.748 2.879 1.154 4.166 1.154h.005c5.419 0 9.805-4.386 9.805-9.805 0-2.607-1.02-5.071-2.859-6.91-1.838-1.839-4.293-2.859-6.91-2.859zm4.01 13.911l-.225.378c-.733 1.255-2.022 1.94-3.418 1.94h-.005c-1.396 0-2.685-.685-3.418-1.94l-.225-.378-1.077-.577c-.552-.296-.864-.956-.864-1.636v-1.127l.519-.344c.483-.32.738-.908.647-1.487l-.447-2.68c-.126-.757.243-1.554.999-1.879l.519-.221c.54-.23.864-.78.864-1.353v-.685c0-.685.311-1.353.864-1.636l1.077-.577.225-.378c.733-1.255 2.022-1.94 3.418-1.94h.005c1.396 0 2.685.685 3.418 1.94l.225.378 1.077.577c.552.296.864.956.864 1.636v.685c0 .573-.324 1.123-.864 1.353l-.519.221c-.756.325-1.125 1.122-.999 1.879l.447 2.68c.091.579-.164 1.167-.647 1.487l-.519.344v1.127c0 .68.312 1.34.864 1.636l1.077.577z"/></svg>
+                        </button>
+                        <button onclick="shareLink('Facebook')" class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full transition duration-200 transform hover:scale-110" title="Share via Facebook">
+                            <!-- Facebook Icon SVG -->
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12c0 5.176 3.784 9.444 8.706 10.385V14.4H8.47V12h2.236v-1.74c0-2.227 1.357-3.447 3.351-3.447 0.958 0 1.777 0.072 2.016 0.103V9h-1.352c-1.066 0-1.27.506-1.27 1.25v1.498h2.646l-0.345 2.4h-2.301V22.385C18.216 21.444 22 17.176 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="text-center border-t border-gray-700 pt-8 mt-8">
+                <p class="text-gray-500 text-sm">&copy; 2025 2SepatuBersihCikarang. All Rights Reserved. Desain Estetik & Fungsional.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // --- Custom WhatsApp Order Function ---
+        function openWhatsAppOrder() {
+            const phoneNumber = '6285158701081'; // Nomor WA 085158701081
+            
+            const message = `Halo kak! 👋
+Terima kasih sudah menghubungi 2SepatuBersihCikarang.
+Untuk proses order cuci sepatu, silakan isi format berikut ya:
+
+📌 FORMAT ORDER CUCI SEPATU
+
+- Nama:
+- Nama IG (Tag) :
+- Jumlah Pasang Sepatu:
+- Jenis Sepatu (Sneakers/Canvas/Suede/Kulit dll):
+- Paket Layanan (Reguler/Deep Clean/Unyellowing/Repaint):
+- Lokasi (Pickup Delivery / Drop Off):
+- Jadwal Pengambilan / Datang:
+
+Setelah kakak kirim formatnya, admin akan segera konfirmasi ya 😊
+Terima kasih telah mempercayakan perawatan sepatu kakak ke kami! 👟✨`;
+            
+            // URL encoding the message
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Constructing the final WhatsApp link
+            const waLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Open the link in a new tab
+            window.open(waLink, '_blank');
+        }
+
+        // --- Dark Mode Functionality ---
+        const toggleButton = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+
+        function toggleDarkMode() {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            toggleButton.innerHTML = isDarkMode ? '☀️' : '🌙';
+        }
+
+        toggleButton.addEventListener('click', toggleDarkMode);
+        
+        // --- Testimonial Carousel ---
+        let testimonialIndex = 0;
+        const track = document.getElementById('testimonial-track');
+        const testimonials = track.children;
+        const dotsContainer = document.getElementById('testimonial-dots');
+
+        function updateTestimonial(index) {
+            testimonialIndex = (index + testimonials.length) % testimonials.length;
+            const offset = -testimonialIndex * 100;
+            track.style.transform = `translateX(${offset}%)`;
+
+            // Update dots
+            Array.from(dotsContainer.children).forEach((dot, i) => {
+                dot.classList.remove('dot-active');
+                dot.classList.remove('bg-secondary-cyan');
+                dot.classList.add('bg-primary-blue');
+                dot.classList.add('opacity-50');
+
+                if (i === testimonialIndex) {
+                    dot.classList.add('dot-active');
+                    dot.classList.remove('opacity-50');
+                    dot.classList.add('bg-secondary-cyan'); // Active dot color
+                }
+            });
+        }
+
+        // Initialize dots
+        for (let i = 0; i < testimonials.length; i++) {
+            const dot = dotsContainer.children[i];
+            dot.onclick = () => updateTestimonial(i);
+        }
+
+        // Auto-advance carousel
+        setInterval(() => {
+            updateTestimonial(testimonialIndex + 1);
+        }, 5000); // Change testimonial every 5 seconds
+
+        // --- Social Share ---
+        function shareLink(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent("2SepatuBersihCikarang - Layanan Cuci Sepatu Premium");
+            
+            if (platform === 'WhatsApp') {
+                const waText = `Cek layanan cuci sepatu premium di Cikarang: ${title}. Kunjungi: ${url}`;
+                // Note: This function shares the website link, not the order format.
+                window.open(`https://wa.me/?text=${waText}`, '_blank');
+            } else if (platform === 'Facebook') {
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title}`, '_blank');
+            }
+        }
+
+        // --- Initialization on Window Load ---
+        window.onload = function() {
+            // Load Dark Mode State
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+                toggleButton.innerHTML = '☀️';
+            } else {
+                toggleButton.innerHTML = '🌙';
+            }
+            
+            // Initialize Testimonial Carousel
+            updateTestimonial(0);
+        };
+
+    </script>
+</body>
+</html>
